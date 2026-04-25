@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Solomon — AI Trading Bot von OctaEight | Warteliste</title>
-<meta name="description" content="Solomon ist ein AI-gestütztes Marktintelligenz-System von OctaEight. Trage dich in die Warteliste ein und sichere dir frühen Zugang." />
+<title>Solomon — AI Trading Bot | Warteliste</title>
+<meta name="description" content="Solomon analysiert Marktdaten in Echtzeit und trifft automatisierte Trading-Entscheidungen. Trage dich in die Warteliste ein und sichere dir frühen Zugang." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -175,14 +175,20 @@
     text-decoration: none;
   }
   .brand-mark {
-    width: 32px; height: 32px;
+    width: 28px; height: 28px;
     display: grid;
     place-items: center;
-    border-radius: 7px;
-    overflow: hidden;
-    box-shadow: 0 0 18px rgba(77, 166, 255, 0.35);
+    color: #FFFFFF;
+    filter: drop-shadow(0 0 10px rgba(77, 166, 255, 0.6));
   }
-  .brand-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .brand-mark svg { width: 100%; height: 100%; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
   .nav-status {
     display: flex; align-items: center; gap: 8px;
     font-size: 13px;
@@ -210,16 +216,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 140px 0 80px;
+    justify-content: flex-start;
+    padding: 100px 0 60px;
     text-align: center;
   }
 
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 18px;
+    gap: 9px;
+    padding: 7px 16px;
     background: var(--surface);
     border: 1px solid var(--border-mid);
     border-radius: var(--radius-full);
@@ -244,11 +250,11 @@
   .hero h1 {
     font-family: var(--font-sans);
     font-weight: 500;
-    font-size: clamp(42px, 7vw, 88px);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    margin: 28px auto 0;
-    max-width: 14ch;
+    font-size: clamp(36px, 5.4vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin: 22px auto 0;
+    max-width: 16ch;
     color: var(--text);
     animation: fadeUp 0.9s ease-out 0.1s both;
   }
@@ -265,17 +271,17 @@
   }
 
   .hero-sub {
-    margin: 26px auto 0;
-    max-width: 580px;
-    font-size: clamp(16px, 1.6vw, 19px);
+    margin: 18px auto 0;
+    max-width: 620px;
+    font-size: clamp(15px, 1.4vw, 17px);
     line-height: 1.55;
     color: var(--text-muted);
     font-weight: 400;
     animation: fadeUp 1s ease-out 0.2s both;
   }
   .hero-supporting {
-    margin-top: 14px;
-    font-size: 14.5px;
+    margin-top: 10px;
+    font-size: 13.5px;
     color: var(--text-dim);
     animation: fadeUp 1s ease-out 0.25s both;
   }
@@ -283,11 +289,11 @@
   /* Trust pills inside hero */
   .trust-strip {
     display: flex;
-    gap: 14px;
-    margin-top: 38px;
+    gap: 12px;
+    margin-top: 28px;
     flex-wrap: wrap;
     justify-content: center;
-    animation: fadeUp 1s ease-out 0.3s both;
+    animation: fadeUp 1s ease-out 0.45s both;
   }
   .trust-pill {
     display: inline-flex;
@@ -314,10 +320,10 @@
      WAITLIST FORM CARD (in Hero)
      ====================================================== */
   .form-card {
-    margin: 56px auto 0;
+    margin: 32px auto 0;
     width: 100%;
-    max-width: 520px;
-    padding: 32px;
+    max-width: 500px;
+    padding: 28px;
     background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(8, 14, 28, 0.85) 100%);
     border: 1px solid var(--border-mid);
     border-radius: var(--radius-xl);
@@ -783,6 +789,164 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
+
+  /* ======================================================
+     MODALS (Datenschutz / Kontakt)
+     ====================================================== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 0.25s ease-out;
+  }
+  .modal-overlay.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 85vh;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(8, 14, 28, 0.98) 100%);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-xl);
+    box-shadow:
+      0 50px 120px -20px rgba(0, 0, 0, 0.9),
+      0 0 80px -20px rgba(77, 166, 255, 0.25);
+    overflow: hidden;
+    display: none;
+    animation: modalUp 0.35s cubic-bezier(.2, .9, .3, 1);
+  }
+  .modal.active { display: block; }
+  @keyframes modalUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 36px; height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: color .2s, border-color .2s, background .2s;
+    z-index: 2;
+  }
+  .modal-close:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--surface-strong);
+  }
+
+  .modal-content {
+    padding: 44px 44px 40px;
+    overflow-y: auto;
+    max-height: 85vh;
+    color: var(--text-muted);
+  }
+  .modal-content::-webkit-scrollbar { width: 8px; }
+  .modal-content::-webkit-scrollbar-track { background: transparent; }
+  .modal-content::-webkit-scrollbar-thumb {
+    background: var(--border-mid);
+    border-radius: 4px;
+  }
+
+  .modal-title {
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+    padding-right: 40px;
+  }
+
+  .modal-content h3 {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 24px;
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+  .modal-content h3:first-of-type { margin-top: 0; }
+
+  .modal-content p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .modal-content ul {
+    margin: 8px 0 12px 20px;
+    color: var(--text-muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .modal-content a {
+    color: var(--accent-bright);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .modal-content a:hover { color: #B8DBFF; text-decoration: underline; }
+
+  .contact-card {
+    margin: 24px 0;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(12px);
+  }
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .contact-row:first-child { padding-top: 0; }
+  .contact-row:last-child  { padding-bottom: 0; border-bottom: none; }
+  .contact-label {
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .contact-row a {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .contact-row a:hover { color: var(--accent-bright); }
+  .contact-note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  body.modal-open { overflow: hidden; }
+
+  @media (max-width: 600px) {
+    .modal-content { padding: 36px 24px 28px; }
+    .modal-title { font-size: 24px; }
+  }
+
   /* ======================================================
      RESPONSIVE
      ====================================================== */
@@ -817,9 +981,11 @@
   <div class="container nav-inner">
     <a href="#" class="brand">
       <span class="brand-mark" aria-hidden="true">
-        <img src="data:image/jpeg;base64,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" alt="OctaEight Logo" />
+        <svg viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,8 88,30 88,70 50,92 12,70 12,30"/>
+        </svg>
       </span>
-      OctaEight
+      <span class="brand-name">Solomon</span>
     </a>
 
   </div>
@@ -831,30 +997,15 @@
     <span class="badge">Early Access</span>
 
     <h1>
-      Schlage den Markt mit <em>AI-Präzision.</em>
+      Schlage den Markt mit <em>AI-gestütztem Trading.</em>
     </h1>
 
     <p class="hero-sub">
-      Solomon analysiert Marktsignale in Echtzeit, erkennt Chancen vor der Masse und handelt vollautomatisch — datenbasiert, präzise, ohne Emotion.
+      Solomon analysiert Marktdaten in Echtzeit und trifft automatisierte Trading-Entscheidungen — für maximale Effizienz und Kontrolle.
     </p>
     <p class="hero-supporting">
-      Trage dich in die Warteliste ein und sichere dir frühzeitigen Zugang.
+      Trag dich in die Warteliste ein und sichere dir frühzeitigen Zugang.
     </p>
-
-    <div class="trust-strip">
-      <span class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 L3 14 h7 l-1 8 L20 10 h-7 z"/></svg>
-        KI-gestützte Marktanalyse
-      </span>
-      <span class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-7"/></svg>
-        Datenbasierte Entscheidungen
-      </span>
-      <span class="trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-        Kontrollierte Ausführung
-      </span>
-    </div>
 
     <!-- ============= FORM CARD ============= -->
     <form class="form-card" id="waitlistForm" novalidate>
@@ -893,6 +1044,21 @@
         <p>Wir melden uns, sobald dein Zugang freigeschaltet wird.</p>
       </div>
     </form>
+
+    <div class="trust-strip">
+      <span class="trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 L3 14 h7 l-1 8 L20 10 h-7 z"/></svg>
+        KI-gestützte Marktanalyse
+      </span>
+      <span class="trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-7"/></svg>
+        Datenbasierte Entscheidungen
+      </span>
+      <span class="trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Kontrollierte Ausführung
+      </span>
+    </div>
   </div>
 </section>
 
@@ -1034,15 +1200,77 @@
 <!-- ============= FOOTER ============= -->
 <footer>
   <div class="container">
-    <div class="footer-brand">OctaEight · Solomon</div>
+    <div class="footer-brand">Solomon</div>
     <div class="footer-links">
-      <a href="#">Impressum</a>
-      <a href="#">Datenschutz</a>
-      <a href="#">Kontakt</a>
+      <a href="#" data-modal="datenschutz">Datenschutz</a>
+      <a href="#" data-modal="kontakt">Kontakt</a>
     </div>
-    <div class="footer-copy">© 2026 OctaEight. Alle Rechte vorbehalten.</div>
+    <div class="footer-copy">© 2026 Solomon. Alle Rechte vorbehalten.</div>
   </div>
 </footer>
+
+<!-- ============= MODALS ============= -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalDatenschutz">
+    <button class="modal-close" aria-label="Schließen">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">Datenschutzerklärung</h2>
+
+      <h3>Allgemeine Hinweise</h3>
+      <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Website verarbeitet personenbezogene Daten nur im notwendigen Umfang.</p>
+
+      <h3>Datenerfassung auf dieser Website</h3>
+      <p>Wenn Sie sich auf unserer Warteliste eintragen, werden folgende Daten erhoben:</p>
+      <ul>
+        <li>E-Mail-Adresse</li>
+        <li>ggf. Name</li>
+        <li>ggf. Telefonnummer (optional)</li>
+      </ul>
+      <p>Diese Daten werden ausschließlich verwendet, um Sie über Neuigkeiten und den Start unseres Angebots zu informieren.</p>
+
+      <h3>Zweck der Verarbeitung</h3>
+      <p>Die Verarbeitung der Daten erfolgt zur Verwaltung der Warteliste und zur Kontaktaufnahme.</p>
+
+      <h3>Rechtsgrundlage</h3>
+      <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+
+      <h3>Speicherdauer</h3>
+      <p>Ihre Daten werden gespeichert, bis Sie sich von der Warteliste abmelden oder die Einwilligung widerrufen.</p>
+
+      <h3>Ihre Rechte</h3>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten.</p>
+
+      <h3>Kontakt</h3>
+      <p>Bei Fragen zum Datenschutz können Sie uns jederzeit kontaktieren:<br/>
+      E-Mail: <a href="mailto:octa.zana1@gmail.com">octa.zana1@gmail.com</a></p>
+    </div>
+  </div>
+
+  <div class="modal" id="modalKontakt">
+    <button class="modal-close" aria-label="Schließen">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-content">
+      <h2 class="modal-title">Kontakt</h2>
+      <p>Wenn Sie Fragen haben oder mit uns in Kontakt treten möchten, erreichen Sie uns unter:</p>
+
+      <div class="contact-card">
+        <div class="contact-row">
+          <span class="contact-label">E-Mail</span>
+          <a href="mailto:octa.zana1@gmail.com">octa.zana1@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Telefon</span>
+          <a href="tel:+4917683264409">+49 176 832 644 09</a>
+        </div>
+      </div>
+
+      <p class="contact-note">Wir melden uns in der Regel innerhalb von 24 Stunden zurück.</p>
+    </div>
+  </div>
+</div>
 
 <script>
   // Smooth scroll-reveal animations
@@ -1129,6 +1357,46 @@
     document.getElementById('waitlistForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => form.firstName.focus(), 700);
   });
+
+  // ====================================================
+  // MODALS (Datenschutz / Kontakt)
+  // ====================================================
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalDatenschutz = document.getElementById('modalDatenschutz');
+  const modalKontakt = document.getElementById('modalKontakt');
+
+  function openModal(name) {
+    modalOverlay.classList.add('active');
+    document.body.classList.add('modal-open');
+    if (name === 'datenschutz') modalDatenschutz.classList.add('active');
+    if (name === 'kontakt')      modalKontakt.classList.add('active');
+  }
+  function closeAllModals() {
+    modalOverlay.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    modalDatenschutz.classList.remove('active');
+    modalKontakt.classList.remove('active');
+  }
+
+  document.querySelectorAll('[data-modal]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(link.getAttribute('data-modal'));
+    });
+  });
+
+  document.querySelectorAll('.modal-close').forEach(btn => {
+    btn.addEventListener('click', closeAllModals);
+  });
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeAllModals();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeAllModals();
+  });
+
 </script>
 
 </body>
